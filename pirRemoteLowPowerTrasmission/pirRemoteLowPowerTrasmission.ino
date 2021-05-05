@@ -23,7 +23,7 @@ void setup() {
 	GIFR |= bit(PCIF);    // clear any outstanding interrupts
 	GIMSK |= bit(PCIE);    // enable pin change interrupts
 
-	/*randomSeed(analogRead(A0));*/
+	randomSeed(analogRead(A0));
 
 	attachInterrupt(0, activateSystemInterrupt, CHANGE);
 }
@@ -36,25 +36,29 @@ long number = 0;
 
 bool canGo = true;
 
+uint8_t messageDelivered = 0;
+
 void loop() {
 	uint8_t message[1];
 	uint8_t messageLength = 1; // the size of the message
 
-	/*number = random(1, 5);*/
+	
 
 	if (isSystemActivated)
 	{
+		messageDelivered = 0;
 		for (int i = 0; i < 5; i++)
 		{
 			canGo = true;
+
 			for (int i = 0; i < 100; i++)
 			{
-				delay(500);
+				delay(100);
 				if (vw_get_message(message, &messageLength)) // non-blocking
 				{
 					for (int i = 0; i < messageLength; i++)
 					{
-						if ((char)message[i] == 'A')
+						if ((char)message[i] == 'B')
 						{
 							for (int i = 0; i < 20; i++)
 							{
@@ -73,20 +77,27 @@ void loop() {
 			}
 			if (canGo)
 			{
-				char message[1];// = "A";   // array to hold the result.
-				strcpy(message, "B"); // copy string one into the result.
-				vw_send((uint8_t*)message, 1);
-				vw_wait_tx();
-				digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
-				delay(10000);                       // wait for a second
-				digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
+				for (int i = 0; i < 3; i++)
+				{
+					char message[1];// = "A";   // array to hold the result.
+					strcpy(message, "B"); // copy string one into the result.
+					vw_send((uint8_t*)message, 1);
+					vw_wait_tx();
+					digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
+					delay(5000);                       // wait for a second
+					digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
+					
+				}
+				messageDelivered++;
+				number = random(1, 10);
+				delay(number * 10000);
 			}
 
 			//}
 		}
 		//mySerial.println("System sleep mode");
 		//delay(100000);
-		if (canGo)
+		if (canGo || messageDelivered > 2)
 		{
 			isSystemActivated = false;
 			digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
