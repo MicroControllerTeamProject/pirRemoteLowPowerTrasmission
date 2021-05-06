@@ -39,10 +39,19 @@ bool canGo = true;
 uint8_t messageDelivered = 0;
 
 void loop() {
+
+	//char message[1];// = "A";   // array to hold the result.
+	//strcpy(message, "B"); // copy string one into the result.
+	//vw_send((uint8_t*)message, 1);
+	//vw_wait_tx();
+	//digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
+	//delay(5000);                       // wait for a second
+	//digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
+
+
+
 	uint8_t message[1];
 	uint8_t messageLength = 1; // the size of the message
-
-	
 
 	if (isSystemActivated)
 	{
@@ -79,9 +88,9 @@ void loop() {
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					char message[1];// = "A";   // array to hold the result.
-					strcpy(message, "B"); // copy string one into the result.
-					vw_send((uint8_t*)message, 1);
+					char message[3];// = "A";   // array to hold the result.
+					strcpy(message, "B1X"); // copy string one into the result.
+					vw_send((uint8_t*)message, 3);
 					vw_wait_tx();
 					digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
 					delay(5000);                       // wait for a second

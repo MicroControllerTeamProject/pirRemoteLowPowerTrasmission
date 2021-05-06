@@ -22,6 +22,7 @@ void setup()
 	softwareSerial.begin(38400);
 	setVirtualWireForRF433Receiver();
 	pinMode(13, OUTPUT);
+	pinMode(10, OUTPUT);
 	digitalWrite(13, LOW);
 	//_sendMessageTime = millis();
 }
@@ -39,29 +40,36 @@ void setVirtualWireForRF433Receiver()
 
 void loop()
 {
-	uint8_t message[1];
-	uint8_t messageLength = 1; // the size of the message
+	uint8_t message[3];
+	uint8_t messageLength = 3; // the size of the message
 	vw_wait_rx_max(10000);
 	if (vw_get_message(message, &messageLength)) // non-blocking
 	{
 		for (int i = 0; i < messageLength; i++)
 		{
-			softwareSerial.println((char)message[i]);
+			Serial.print((char)message[i]);
 			if ((char)message[i] == 'B')
 			{
+				tone(10, 400, 200);
+				delay(200);
+				tone(10, 1000, 200);
+				delay(200);
+				noTone(10);
+				//delay(10);
 				/*for (int i = 0; i < 2; i++)
 				{*/
 				digitalWrite(13, HIGH);
-				delay(1000);
+				delay(100);
 				digitalWrite(13, LOW);
-				delay(1000);
+				delay(100);
 				//}
-				Serial.println("beccato");
+				//Serial.println("beccato");
 				//_sendMessageTime = 0;
 				//delay(1000);
 			}
 			//received_number = message[i];
 		}
+		Serial.println("");
 	}
 	//digitalWrite(13, HIGH);
 	//delay(500);

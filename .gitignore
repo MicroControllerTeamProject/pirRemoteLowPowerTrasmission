@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/pirRemoteLowPowerTrasmission/Debug
+/pirRemoteLowPowerTrasmission/Release
+/pirRemoteLowPowerTrasmission/__vm
+/receiverSample/__vm
+/receiverSample/Release
+/receiverSample/receiverSample.vcxproj.user
+/receiverSample/receiverSample.vcxproj.filters
+/pirRemoteLowPowerTrasmission/pirRemoteLowPowerTrasmission.vcxproj.user
+/pirRemoteLowPowerTrasmission/pirRemoteLowPowerTrasmission.vcxproj.filters
+/.vs
