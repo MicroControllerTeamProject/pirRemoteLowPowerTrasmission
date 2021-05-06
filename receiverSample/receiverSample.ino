@@ -39,18 +39,6 @@ void setVirtualWireForRF433Receiver()
 
 void loop()
 {
-	//_sendMessageTime++;
-	//if (_sendMessageTime > 34000000)
-	//{
-	//	sendMessageToOpenGateIfNoCar();
-	//	_sendMessageTime = 0;
-	//}
-
-
-	////using for uploading the second pcb.
-	//digitalWrite(0, HIGH);
-	//return;
-
 	uint8_t message[1];
 	uint8_t messageLength = 1; // the size of the message
 	vw_wait_rx_max(10000);
@@ -81,11 +69,4 @@ void loop()
 	//delay(500);
 
 }
-void sendMessageToOpenGateIfNoCar()
-{
-	digitalWrite(0, HIGH);
-	delay(150000);
-	softwareSerial.print("CK1");
-	delay(500000);
-	digitalWrite(0, LOW);
-}
+
