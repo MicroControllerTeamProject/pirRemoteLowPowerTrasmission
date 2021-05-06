@@ -13,6 +13,7 @@
 #include <VirtualWire.h>              //Download it here: http://electronoobs.com/eng_arduino_virtualWire.php
 
 SoftwareSerial softwareSerial(10, 3, false);
+bool isDisableAlarm = false;
 
 //unsigned long _sendMessageTime;
 
@@ -24,6 +25,7 @@ void setup()
 	pinMode(13, OUTPUT);
 	pinMode(10, OUTPUT);
 	digitalWrite(13, LOW);
+	pinMode(3, INPUT_PULLUP);
 	//_sendMessageTime = millis();
 }
 
@@ -34,12 +36,29 @@ void setVirtualWireForRF433Receiver()
 	vw_set_rx_pin(2);
 	vw_setup(100); // Bits per sec
 	vw_rx_start();
+	attachInterrupt(1, disableAlarm, CHANGE);
 }
 
+void disableAlarm()
+{
+	isDisableAlarm = true;
+}
 
+unsigned long disableSoundTime = 0;
 
 void loop()
 {
+	if (isDisableAlarm == true && disableSoundTime == 0)
+	{
+		disableSoundTime = millis();
+	}
+
+	if ((millis() - disableSoundTime) > 60000)
+	{
+		isDisableAlarm = false;
+		disableSoundTime = 0;
+	}
+
 	uint8_t message[3];
 	uint8_t messageLength = 3; // the size of the message
 	vw_wait_rx_max(10000);
@@ -50,31 +69,23 @@ void loop()
 			Serial.print((char)message[i]);
 			if ((char)message[i] == 'B')
 			{
-				tone(10, 400, 200);
-				delay(200);
-				tone(10, 1000, 200);
-				delay(200);
-				noTone(10);
-				//delay(10);
-				/*for (int i = 0; i < 2; i++)
-				{*/
+				if (isDisableAlarm == false && digitalRead(3) == 1)
+				{
+					tone(10, 400, 200);
+					delay(200);
+					tone(10, 1000, 200);
+					delay(200);
+					noTone(10);
+					//delay(10);
+				}
 				digitalWrite(13, HIGH);
 				delay(100);
 				digitalWrite(13, LOW);
 				delay(100);
-				//}
-				//Serial.println("beccato");
-				//_sendMessageTime = 0;
-				//delay(1000);
 			}
-			//received_number = message[i];
 		}
 		Serial.println("");
 	}
-	//digitalWrite(13, HIGH);
-	//delay(500);
-	//digitalWrite(13, LOW);
-	//delay(500);
 
 }
 
