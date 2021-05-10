@@ -95,7 +95,6 @@ void loop() {
 					digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
 					delay(5000);                       // wait for a second
 					digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
-					
 				}
 				messageDelivered++;
 				number = random(1, 10);
