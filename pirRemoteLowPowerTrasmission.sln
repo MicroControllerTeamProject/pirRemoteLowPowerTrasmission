@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pirRemoteLowPowerTrasmissio
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "receiverSample", "receiverSample\receiverSample.vcxproj", "{FAE7110C-077B-41DC-8B43-09DB086A0DB2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "p1", "p1", "{E3BC38A3-2EDC-4D65-BB54-6E44CDD15CE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -24,6 +26,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88} = {E3BC38A3-2EDC-4D65-BB54-6E44CDD15CE5}
+		{FAE7110C-077B-41DC-8B43-09DB086A0DB2} = {E3BC38A3-2EDC-4D65-BB54-6E44CDD15CE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEE39E50-920C-4713-ABAA-FED2DDC70EBA}

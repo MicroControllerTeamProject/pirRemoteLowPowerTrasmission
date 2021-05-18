@@ -32,6 +32,7 @@ void activateSystemInterrupt()
 {
 	isSystemActivated = true;
 }
+
 long number = 0;
 
 bool canGo = true;
@@ -39,6 +40,18 @@ bool canGo = true;
 uint8_t messageDelivered = 0;
 
 void loop() {
+
+
+	if (isSystemActivated)
+	{
+		digitalWrite(0, HIGH);  // let led blink
+		delay(1000);
+		digitalWrite(0, LOW);
+		delay(1000);
+		isSystemActivated = false;
+	}
+
+	return;
 
 	//char message[1];// = "A";   // array to hold the result.
 	//strcpy(message, "B"); // copy string one into the result.
