@@ -5,12 +5,10 @@
 bool isSystemActivated = false;
 
 byte adcsra;
-
 byte pinLed = 0;
 byte pinInterrupt = 2;
 
 void setup() {
-
 	setVirtualWireForRF433Receiver();
 	vw_set_ptt_pin(999);
 	vw_set_ptt_inverted(false);
@@ -42,8 +40,6 @@ bool canTransmitMessage = true;
 uint8_t messageDelivered = 0;
 
 void loop() {
-
-
 	//if (isSystemActivated)
 	//{
 	//	digitalWrite(0, HIGH);  // let led blink
@@ -62,8 +58,6 @@ void loop() {
 	//digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
 	//delay(5000);                       // wait for a second
 	//digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
-
-
 
 	uint8_t message[1];
 	uint8_t messageLength = 1; // the size of the message
