@@ -11,11 +11,10 @@ byte adcsra;
 byte transistorPin = 1;
 
 void setup() {
+
 	/*pinMode(2, INPUT_PULLUP);*/
 	pinMode(transistorPin, OUTPUT);
 	digitalWrite(transistorPin, LOW);
-
-
 
 	setVirtualWireForRF433Receiver();
 	//mySerial.begin(9600);
@@ -24,7 +23,6 @@ void setup() {
 	vw_set_tx_pin(3);
 	vw_setup(100); // Bits per sec
 
-	
 	PCMSK |= _BV(PCINT2);  // want pin D3 / pin 2
 	//MCUCR |= _BV(ISC00);
 	//MCUCR |= _BV(ISC01);
@@ -85,8 +83,6 @@ void loop() {
 	//digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
 	//delay(5000);                       // wait for a second
 	//digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
-
-
 
 	uint8_t message[1];
 	uint8_t messageLength = 1; // the size of the message
