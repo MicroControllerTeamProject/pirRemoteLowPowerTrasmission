@@ -123,7 +123,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties config.Debug.customdebug_attiny_ATtinyX5_attiny85_debugger_type="none" custom_attiny_ATtinyX5_attiny85_vm.programmer_name="usbtinyisp" custom_attiny_ATtinyX5_attiny85_vm.upload.useprogrammer="1" />
+      <UserProperties config.Debug.customdebug_attiny_ATtinyX5_attiny85_debugger_type="none" config.Debug.customdebug_nano_atmega328_debugger_type="universal" config.Debug.customdebug_uno_debugger_type="universal" custom_attiny_ATtinyX5_attiny85_vm.programmer_name="usbtinyisp" custom_attiny_ATtinyX5_attiny85_vm.upload.useprogrammer="1" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -10,6 +10,7 @@ byte adcsra;
 byte transistorPin = 0;
 
 void setup() {
+
 	setVirtualWireForRF433Receiver();
 	//mySerial.begin(9600);
 	vw_set_ptt_pin(999);
@@ -18,6 +19,7 @@ void setup() {
 	vw_setup(100); // Bits per sec
 
 	pinMode(0, OUTPUT);
+
 	//pinMode(1, OUTPUT);
 	PCMSK |= bit(PCINT2);  // want pin D3 / pin 2
 	GIFR |= bit(PCIF);    // clear any outstanding interrupts
@@ -42,16 +44,16 @@ uint8_t messageDelivered = 0;
 void loop() {
 
 
-	if (isSystemActivated)
-	{
-		digitalWrite(0, HIGH);  // let led blink
-		delay(1000);
-		digitalWrite(0, LOW);
-		delay(1000);
-		isSystemActivated = false;
-	}
+	//if (isSystemActivated)
+	//{
+	//	digitalWrite(0, HIGH);  // let led blink
+	//	delay(1000);
+	//	digitalWrite(0, LOW);
+	//	delay(1000);
+	//	isSystemActivated = false;
+	//}
 
-	return;
+	//return;
 
 	//char message[1];// = "A";   // array to hold the result.
 	//strcpy(message, "B"); // copy string one into the result.
