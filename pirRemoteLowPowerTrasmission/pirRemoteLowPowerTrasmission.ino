@@ -12,7 +12,7 @@ void setup() {
 	setVirtualWireForRF433Receiver();
 	vw_set_ptt_pin(999);
 	vw_set_ptt_inverted(false);
-	vw_set_tx_pin(4);
+	vw_set_tx_pin(1);
 	vw_setup(100); // Bits per sec
 
 	pinMode(pinLed, OUTPUT);
@@ -98,7 +98,7 @@ void loop() {
 				for (int i = 0; i < 3; i++)
 				{
 					char message[3];
-					strcpy(message, "B1X"); 
+					strcpy(message, "B3"); 
 					vw_send((uint8_t*)message, 3);
 					vw_wait_tx();
 					digitalWrite(0, HIGH);  
@@ -120,7 +120,6 @@ void loop() {
 		goToSleep();
 	}
 }
-
 void setVirtualWireForRF433Receiver()
 {
 	vw_set_ptt_pin(999);
