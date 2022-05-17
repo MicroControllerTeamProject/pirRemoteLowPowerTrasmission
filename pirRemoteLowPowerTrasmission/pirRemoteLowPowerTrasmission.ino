@@ -8,12 +8,11 @@ byte adcsra;
 byte pinLed = 0;
 byte pinInterrupt = 2;
 
+
+
 void setup() {
-	setVirtualWireForRF433Receiver();
-	vw_set_ptt_pin(999);
-	vw_set_ptt_inverted(false);
-	vw_set_tx_pin(1);
-	vw_setup(100); // Bits per sec
+	//setVirtualWireForRF433Receiver();
+	setVirtualWireForRF433Trasmitter();
 
 	pinMode(pinLed, OUTPUT);
 
@@ -39,7 +38,22 @@ bool canTransmitMessage = true;
 
 uint8_t messageDelivered = 0;
 
+uint32_t multiSeconds = 80000;
+void delay_t(float seconds)
+{
+	delay(seconds * multiSeconds);
+}
+
 void loop() {
+
+	/*digitalWrite(0, HIGH);
+	delay_t(0.1);
+	digitalWrite(0, LOW);
+	delay_t(0.1);
+	number = random(1, 10);
+	printData(number, true);
+	return;*/
+
 	//if (isSystemActivated)
 	//{
 	//	digitalWrite(0, HIGH);  // let led blink
@@ -65,13 +79,12 @@ void loop() {
 	if (isSystemActivated || digitalRead(pinInterrupt) == HIGH)
 	{
 		messageDelivered = 0;
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 2; i++)
 		{
 			canTransmitMessage = true;
 
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 2; i++)
 			{
-				delay(100);
 				if (vw_get_message(message, &messageLength)) // non-blocking
 				{
 					for (int i = 0; i < messageLength; i++)
@@ -81,12 +94,12 @@ void loop() {
 							for (int i = 0; i < 20; i++)
 							{
 								digitalWrite(0, HIGH);
-								delay(500);
+								delay_t(0.5);
 								digitalWrite(0, LOW);
-								delay(500);
+								delay_t(0.5);
 							}
-							//_sendMessageTime = 0;
-							delay(50000);
+							////_sendMessageTime = 0;
+							/*delay_t(1);*/
 							canTransmitMessage = false;
 						}
 						//received_number = message[i];
@@ -102,16 +115,30 @@ void loop() {
 					vw_send((uint8_t*)message, 3);
 					vw_wait_tx();
 					digitalWrite(0, HIGH);  
-					delay(5000);                      
+					delay_t(0.5);                      
 					digitalWrite(0, LOW); 
+					number = random(1, 10);
+					delay_t(number);
 				}
 				messageDelivered++;
-				number = random(1, 10);
-				delay(number * 10000);
+			/*	number = random(1, 10);
+				delay_t(number);*/
 			}
 		}
 		if ((canTransmitMessage || messageDelivered > 2) && digitalRead(pinInterrupt) != HIGH)
 		{
+			for (int i = 0; i < 3; i++)
+			{
+				char message[3];
+				strcpy(message, "A3");
+				vw_send((uint8_t*)message, 3);
+				vw_wait_tx();
+				digitalWrite(0, HIGH);
+				delay_t(0.5);
+				digitalWrite(0, LOW);
+				number = random(1, 10);
+				delay_t(number);
+			}
 			goToSleep();
 		}
 	}
@@ -122,18 +149,24 @@ void loop() {
 }
 void setVirtualWireForRF433Receiver()
 {
-	vw_set_ptt_pin(999);
+	vw_set_ptt_pin(99);
 	vw_set_ptt_inverted(false);
 	vw_set_rx_pin(3);
 	vw_setup(100); // Bits per sec
 	vw_rx_start();
 }
+
+void setVirtualWireForRF433Trasmitter()
+{
+	vw_set_ptt_pin(99);
+	vw_set_ptt_inverted(false);
+	vw_set_tx_pin(1);
+	vw_setup(100); // Bits per sec
+}
+
 void goToSleep()
 {
 	isSystemActivated = false;
-	digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
-	delay(50000);                       // wait for a second
-	digitalWrite(0, LOW);    // turn the LED off by making the voltage LOW}
 	cli();
 	sleep_enable();
 	set_sleep_mode(SLEEP_MODE_PWR_DOWN);
@@ -143,5 +176,21 @@ void goToSleep()
 	sleep_cpu();                   //go to sleep
 	sleep_disable();               //wake up here
 	ADCSRA = adcsra;               //restore ADCSRA
-	delay(1000);
+	delay_t(1);
+}
+
+void printData(char message[10], bool isNewLine)
+{
+	SoftwareSerial sf(99,3);
+	sf.begin(9600);
+	delay_t(1);
+	sf.println(message);
+}
+
+void printData(double number, bool isNewLine)
+{
+	SoftwareSerial sf(99, 3);
+	sf.begin(9600);
+	delay_t(1);
+	sf.println(number);
 }

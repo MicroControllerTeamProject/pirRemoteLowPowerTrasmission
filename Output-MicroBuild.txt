@@ -1,6 +1,4 @@
 ﻿Compiling 'pirRemoteLowPowerTrasmission' for 'ATtiny85 (ATtiny25/45/85)'
-Program size: 4,024 bytes (used 49% of a 8,192 byte maximum) (1.47 secs)
-Minimum Memory Usage: 180 bytes (35% of a 512 byte maximum)
+Program size: 3,048 bytes (used 37% of a 8,192 byte maximum) (1.53 secs)
+Minimum Memory Usage: 99 bytes (19% of a 512 byte maximum)
  
-Uploading 'pirRemoteLowPowerTrasmission' to 'ATtiny85 (ATtiny25/45/85)' using 'USBtinyISP'
-	The upload process has finished.
